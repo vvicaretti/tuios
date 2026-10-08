@@ -452,6 +452,12 @@ func routeKey(msg tea.KeyPressMsg, o *app.OS) (*app.OS, tea.Cmd) {
 	if o.FilePromptOpen() {
 		return handleFilePromptInput(msg, o)
 	}
+	// The worktree dialog is the file dialog's case again: opened from the
+	// rail, owning every key while it is up, checked ahead of the rail so the
+	// key that opened it cannot answer it. See worktree_prompt_input.go.
+	if o.WorktreePromptOpen() {
+		return handleWorktreePromptInput(msg, o)
+	}
 
 	// The sidebar rail owns the keyboard while focused, in both terminal and
 	// window mode (it is reachable from either via ctrl+b o), so pane and window

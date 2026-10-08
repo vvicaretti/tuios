@@ -350,6 +350,11 @@ func (m *OS) renderOverlays() []*lipgloss.Layer {
 		layers = m.placeOverlayPanel(layers, "filedialog", content, geo, rows)
 	}
 
+	if m.WorktreePromptOpen() {
+		content, geo, rows := m.renderWorktreePrompt()
+		layers = m.placeOverlayPanel(layers, "worktreeprompt", content, geo, rows)
+	}
+
 	if m.ShowHelp {
 		content, geo := m.RenderHelpMenu()
 		layers = m.placeOverlayPanel(layers, "help", content, geo, nil)

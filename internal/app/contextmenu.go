@@ -38,6 +38,10 @@ const (
 	// CtxTargetMachine is a machine's group header on the rail. What the menu
 	// is about rides in ContextMenu.SessionID, which holds the host name.
 	CtxTargetMachine
+	// CtxTargetRepo is a repository's group header on the rail. What the menu
+	// is about rides in ContextMenu.SessionID, which holds the repository's
+	// name, the same field a repo row hit carries. See sidebarRepoRows.
+	CtxTargetRepo
 	// CtxTargetFileRow is the rail's files section: one row of the listing, or
 	// the blank space the section drew around it. Both are the same target
 	// because the two rows that need no file at all (make one, paste one) are

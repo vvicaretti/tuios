@@ -1378,6 +1378,10 @@ type OS struct {
 	// prompt, or the delete confirmation. Zero when none is up, which is every
 	// frame nobody has pressed a file action key on. See sidebar_file_ops.go.
 	filePrompt filePromptState
+	// worktreePrompt is the worktree dialog: a branch name asked over a
+	// repository, whose enter hands the daemon's new-worktree verb a command.
+	// Nil when it is closed. See worktree_prompt.go.
+	worktreePrompt *worktreePromptState
 	// fileClip is what a copy or a cut in the files section captured, waiting
 	// for a paste. It holds paths and no bytes, so it costs nothing to carry.
 	fileClip fileClipboard

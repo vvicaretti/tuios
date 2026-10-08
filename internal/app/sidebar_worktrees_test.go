@@ -81,21 +81,23 @@ func railRowLine(t *testing.T, m *OS, lines []string, kind sidebarRowKind, id st
 
 // TestRailWorktreeGroupHasNoSessionMenu checks the one thing a group header
 // must not do: a repository is not a session, so the right-click cannot offer
-// to rename or kill one under its name.
+// to rename or kill one under its name. The header's carry is the repository's
+// name, the same field a session menu's carry puts a session in, which is why
+// the menu it builds may hold no session action at all.
 func TestRailWorktreeGroupHasNoSessionMenu(t *testing.T) {
 	m, tree := worktreeRailOS(t, 120, 30)
 	lines := railPlain(t, m, tree)
 	_, hit := railRowLine(t, m, lines, sidebarRowRepo, "tuios")
 
+	// With the listing the fixture has — no cached record of where the
+	// repository's main checkout is — the header has nothing to offer and the
+	// right-click falls back to the rail's own settings.
 	m.openSidebarContextMenu(hit, hit.X0, hit.Y0)
 	if m.ContextMenu == nil {
 		t.Fatal("the right-click on a group header opened nothing")
 	}
-	if m.ContextMenu.SessionID == "tuios" {
-		t.Errorf("the menu is about a session named %q, which does not exist: a repository is not a session", m.ContextMenu.SessionID)
-	}
 	for _, item := range m.ContextMenu.Items {
-		if item.Action == "kill_session" || item.Action == "rename_session" {
+		if item.Action == "kill_session" || item.Action == "rename_session" || item.Action == "session_new_worktree" {
 			t.Errorf("the group header offers %q, which would act on a session that does not exist", item.Action)
 		}
 	}

@@ -42,11 +42,7 @@ func handleFilePromptInput(msg tea.KeyPressMsg, o *app.OS) (*app.OS, tea.Cmd) {
 	case "space":
 		o.FilePromptType(" ")
 	default:
-		if msg.Text != "" {
-			o.FilePromptType(msg.Text)
-		} else if len(key) == 1 && key[0] >= 32 && key[0] <= 126 {
-			o.FilePromptType(key)
-		}
+		typePromptText(msg, o.FilePromptType)
 	}
 	return o, nil
 }
